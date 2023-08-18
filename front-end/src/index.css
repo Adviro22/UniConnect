@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body{
+    @apply bg-gray-900 text-white font-bold;
+}
+form {
+  @apply inline-block text-left p-4 border rounded-lg border-gray-300 w-full;
+}
+
+label,
+input,
+select {
+  @apply block;
+}
+
+button {
+  @apply m-2 px-2 py-2 bg-green-700 rounded-md cursor-pointer ;
+}
+
+button:hover {
+  @apply bg-green-700;
+}
