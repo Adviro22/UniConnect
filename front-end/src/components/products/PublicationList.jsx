@@ -1,9 +1,9 @@
 import React from "react";
-import { useProducts } from "../../context/ProductContext";
+import { usePublications } from "../../context/PublicationContext";
 import { ButtonLink } from "../ui";
 
-export function ProductList({ products }) { // Cambio aquí para recibir 'products'
-  const { deleteProduct } = useProducts();
+export function PublicationList({ publications }) {
+  const { deletePublication } = usePublications();
 
   return (
     <table className="border-collapse border border-black mx-auto">
@@ -18,16 +18,16 @@ export function ProductList({ products }) { // Cambio aquí para recibir 'produc
         </tr>
       </thead>
       <tbody className="bg-slate-200">
-        {products.map((product, index) => (
-          <tr key={product._id}>
+        {publications.map((publication, index) => (
+          <tr key={publication._id}>
             <td className="border-black border-4 p-2 text-xl text-black">{index + 1}</td>
-            <td className="border-black border-4 p-2 text-black">{product._id}</td>
-            <td className="border-black border-4 p-2 text-black">{product.nombre}</td>
-            <td className="border-black border-4 p-2 text-black">$ {product.precio}</td>
-            <td className="border-black border-4 p-2 text-black">{product.stock}</td>
+            <td className="border-black border-4 p-2 text-black">{publication._id}</td>
+            <td className="border-black border-4 p-2 text-black">{publication.nombre}</td>
+            <td className="border-black border-4 p-2 text-black">$ {publication.precio}</td>
+            <td className="border-black border-4 p-2 text-black">{publication.stock}</td>
             <td className="border-black border-4 p-2 text-black">
-              <ButtonLink to={`/product/${product._id}`}>Edit</ButtonLink>
-              <button onClick={() => deleteProduct(product._id)}>Delete</button>
+              <ButtonLink to={`/product/${publication._id}`}>Edit</ButtonLink>
+              <button onClick={() => deletePublication(publication._id)}>Delete</button>
             </td>
           </tr>
         ))}

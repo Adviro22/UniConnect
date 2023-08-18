@@ -1,18 +1,18 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home.jsx";
-import GetProducts from "./pages/GetProducts.jsx";
+import GetPublications from "./pages/GetPublications.jsx";
 import Login from "./pages/Login";
 import { Navbar } from "./components/Navbar";
 import { Authprovider } from "./context/AuthContext.jsx";
 import Register from "./pages/Register.jsx";
-import FormProducts from "./pages/FormProducts.jsx";
+import FormPublication from "./pages/FormPublication.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
-import { ProductProvider } from "./context/ProductContext.jsx";
+import { PublicationProvider } from "./context/PublicationContext.jsx";
 
 function App() {
   return (
     <Authprovider>
-      <ProductProvider>
+      <PublicationProvider>
         <BrowserRouter>
           <main className="container content-container mx-auto px-10 md:px-0">
             <Navbar />
@@ -21,14 +21,14 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route element={<ProtectedRoute />}>
-                <Route path="/products" element={<GetProducts />} />
-                <Route path="/add-product" element={<FormProducts />} />
-                <Route path="/product/:id" element={<FormProducts />} />
+                <Route path="/products" element={<GetPublications />} />
+                <Route path="/add-product" element={<FormPublication />} />
+                <Route path="/product/:id" element={<FormPublication />} />
               </Route>
             </Routes>
           </main>
         </BrowserRouter>
-      </ProductProvider>
+      </PublicationProvider>
     </Authprovider>
   );
 }

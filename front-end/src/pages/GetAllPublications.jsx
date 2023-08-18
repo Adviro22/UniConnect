@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useProducts } from "../context/ProductContext";
 import { ImFileEmpty } from "react-icons/im";
-import { ProductList } from "../components/products/ProductList"; // Asegúrate de importar correctamente ProductList
+import { ProductList } from "../components/products/ProductList";
 
 export default function GetProducts() {
   const { products, getProducts } = useProducts();
@@ -17,7 +17,7 @@ export default function GetProducts() {
           <div>
             <ImFileEmpty className="text-6xl text-gray-400 m-auto my-2" />
             <h1 className="font-bold text-xl">
-              No existen productos ingresados
+              No existen Publicaciones 
             </h1>
           </div>
         </div>

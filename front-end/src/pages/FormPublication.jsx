@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, Card, Input, Label } from "../components/ui";
-import { useProducts } from "../context/ProductContext";
+import { usePublications } from "../context/PublicationContext";
 import { useForm } from "react-hook-form";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 dayjs.extend(utc);
 
-export default function FormProducts() {
-  const { createProduct, getProduct, updateProduct } = useProducts();
+export default function FormPublication() {
+  const { createPublication, getPublication, updatePublication } = usePublications();
   const navigate = useNavigate();
   const params = useParams();
   const {
@@ -21,7 +21,7 @@ export default function FormProducts() {
   const onSubmit = async (data) => {
     try {
       if (params.id) {
-        updateProduct(params.id, {
+        updatePublication(params.id, {
           ...data,
           precio:parseFloat(data.precio),
           stock:parseFloat(data.stock),
@@ -29,7 +29,7 @@ export default function FormProducts() {
         });
       } else {
         console.log("al grabar:",data)
-        createProduct({
+        createPublication({
           ...data,
           precio:parseFloat(data.precio),
           stock:parseFloat(data.stock),
@@ -48,7 +48,7 @@ export default function FormProducts() {
     console.log(params.id)
     const loadProdct = async () => {
       if (params.id) {
-        const student = await getProduct(params.id);
+        const student = await getPublication(params.id);
         setValue("nombre", student.nombre);
         setValue("precio", student.precio);
         setValue("stock", student.stock);
