@@ -27,7 +27,7 @@ export function PublicationProvider({ children }) {
   const deletePublication = async (id) => {
     try {
       const res = await deletePublicationsRequest(id);
-      if (res.status === 204) setPublications(products.filter((publication) => publication._id !== id));
+      if (res.status === 204) setPublications(publications.filter((publication) => publication._id !== id));
     } catch (error) {
       console.log(error);
     }
