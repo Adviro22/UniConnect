@@ -37,7 +37,7 @@ export default function FormPublication() {
         });
       }
 
-      navigate("/products");
+      navigate("/publications");
     } catch (error) {
       console.log(error);
       // window.location.href = "/";

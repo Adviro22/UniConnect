@@ -21,9 +21,9 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route element={<ProtectedRoute />}>
-                <Route path="/products" element={<GetPublications />} />
-                <Route path="/add-product" element={<FormPublication />} />
-                <Route path="/product/:id" element={<FormPublication />} />
+                <Route path="/publications" element={<GetPublications />} />
+                <Route path="/add-publication" element={<FormPublication />} />
+                <Route path="/publication/:id" element={<FormPublication />} />
               </Route>
             </Routes>
           </main>

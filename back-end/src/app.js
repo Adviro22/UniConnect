@@ -21,5 +21,5 @@ app.get("/",(req,res)=>{
 })
 // rutas autentitificacion y estudiante
 app.use('/api/auth', authRoutes);
-app.use("/api/product", productRoutes);
+app.use("/api/publication", productRoutes);
 export default app;

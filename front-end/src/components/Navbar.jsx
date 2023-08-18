@@ -9,7 +9,7 @@ export function Navbar() {
   return (
     <nav className="bg-green-700 my-3 flex justify-between py-5 px-10 rounded-lg ">
       <h1 className="text-2xl font-bold text-white">
-        <Link to={isAuthenticated ? "/products" : "/"}>UniConnect+</Link>
+        <Link to={isAuthenticated ? "/publications" : "/"}>UniConnect+</Link>
       </h1>
       <ul className="flex gap-x-2">
         {isAuthenticated ? (
@@ -18,7 +18,7 @@ export function Navbar() {
               user: {user.email}
             </li>
             <li>
-              <ButtonLink to="/add-product">Realizar una Publicación</ButtonLink>
+              <ButtonLink to="/add-publication">Realizar una Publicación</ButtonLink>
             </li>
             <li>
               <Link to="/" onClick={() => logout()} className="text-white">
