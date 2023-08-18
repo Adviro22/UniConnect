@@ -49,12 +49,12 @@ export default function Login() {
            {errors.password && (<p className="text-red-500 font-semibold">{errors.password.message}</p>)}
          
           <button type="submit" 
-                  className="bg-indigo-500 px-4 py-1 rounded-md my-2">Iniciar Sesion
+                  className="bg-gray-900 px-4 py-1 rounded-md my-2">Iniciar Sesion
           </button>
         </form>
 
         <p className="flex gap-x-2 justify-between text-white">
-          No tienes una cuenta...? <Link to="/register" className="text-purple-900 font-bold">Registrarse</Link>
+          No tienes una cuenta...? <Link to="/register" className="text-gray-900 font-bold">Registrarse</Link>
         </p>
        </div> 
     </div>

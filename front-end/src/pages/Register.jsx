@@ -88,7 +88,7 @@ export default function Register() {
 
           <button
             type="submit"
-            className="bg-indigo-500 px-4 py-1 rounded-md my-2"
+            className="bg-gray-900 px-4 py-1 rounded-md my-2"
           >
             Registrarse
           </button>
@@ -96,7 +96,7 @@ export default function Register() {
 
         <p className="flex gap-x-2 justify-between text-white">
           Ya tienes una cuenta...?{" "}
-          <Link to="/login" className="text-purple-900 font-bold">
+          <Link to="/login" className="text-gray-900 font-bold">
             Login
           </Link>
         </p>

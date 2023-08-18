@@ -7,7 +7,7 @@ export function Navbar() {
   console.log(isAuthenticated, user)
 
   return (
-    <nav className="bg-green-600 my-3 flex justify-between py-5 px-10 rounded-lg ">
+    <nav className="bg-green-700 my-3 flex justify-between py-5 px-10 rounded-lg ">
       <h1 className="text-2xl font-bold text-white">
         <Link to={isAuthenticated ? "/products" : "/"}>UniConnect+</Link>
       </h1>
