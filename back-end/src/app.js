@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
-import productRoutes from "./routes/product.routes.js";
+import publicationRoutes from "./routes/product.routes.js";
 import authRoutes from './routes/auth.routes.js';
 const app = express();
 // llamar a los middlewares
@@ -21,5 +21,5 @@ app.get("/",(req,res)=>{
 })
 // rutas autentitificacion y estudiante
 app.use('/api/auth', authRoutes);
-app.use("/api/publication", productRoutes);
+app.use("/api/publication", publicationRoutes);
 export default app;

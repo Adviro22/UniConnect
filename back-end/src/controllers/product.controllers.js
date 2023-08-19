@@ -1,90 +1,83 @@
-import Product from "../models/product.model.js";
+import Publication from "../models/publication.model.js";
 
-export const getProducts = async (req, res) => {
-    const productos = await Product.find({user: req.user.userId}).populate();
-    console.log(productos)
-    res.status(200).json(productos)
+export const getPublications = async (req, res) => {
+    const publications = await Publication.find({user: req.user.userId}).populate();
+    console.log(publications)
+    res.status(200).json(publications)
     
 };
 
-export const createProduct = async (req, res) => {
+export const createPublication = async (req, res) => {
   try {
     // nota1, nota 2
-     const { nombre,precio,stock } = req.body;
-    // Verificar si ya existe un usuario con el mismo correo electrónico
-    const existingEst = await Product.findOne({ nombre });
-    if (existingEst) {
-      return res.status(400).json({ message: 'Ya existe un registro con el mismo nombre' });
-    }
+     const { title,description } = req.body;
     console.log(req.body)
-    const product = new Product({
-      nombre,
-      precio,
-      stock,
+    const publication = new Publication({
+      title,
+      description,
       user: req.user.userId
     });
-    console.log(product)
-    const productOk= await product.save();
+    console.log(publication)
+    const publicationOk= await publication.save();
 
     // Enviar una respuesta al cliente
-    res.status(200).json({"status":"registro ingresado ok",productOk});
+    res.status(200).json({"status":"registro ingresado ok",publicationOk});
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error al insertar" });
   }
 };
 
-export const deleteProduct = async (req, res) => {
+export const deletePublication = async (req, res) => {
   try {
     const { id } = req.params;
      // Busca un estudiante por su ID y sui lo encuebtra lo elimina
-    const product = await Product.findByIdAndDelete(id) ;
-    if (!product) {
-      return res.status(404).json({ message: 'Producto no encontrado' });
+    const publication = await Publication.findByIdAndDelete(id) ;
+    if (!publication) {
+      return res.status(404).json({ message: 'Publicacion no encontrado' });
     }
     return res.sendStatus(204);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: 'Ha ocurrido un error al eliminar el producto' });
+    return res.status(500).json({ message: 'Ha ocurrido un error al eliminar la publicacion' });
   }
 };
 
-export const updateProduct = async (req, res) => {
+export const updatePublication = async (req, res) => {
      try {
     const { id } = req.params;
-    const { nombre, precio ,stock } = req.body;
+    const { title, description } = req.body;
 
     // Buscar un estudiante por su ID en la base de datos
-    const product = await Product.findById(id);
-    if (!product) {
-      return res.status(404).json({ message: 'Producto no encontrado' });
+    const publicacion = await Publication.findById(id);
+    if (!publicacion) {
+      return res.status(404).json({ message: 'Publicacion no encontrado' });
     }
     // Actualizar el los datos del estudiante
-    product.nombre = nombre;
-    product.precio = precio;
-    product.stock = stock;
-    await product.save();
+    publicacion.title = title;
+    publicacion.description = description;
+    await publicacion.save();
 
     // Enviar una respuesta al cliente
-    res.status(200).json({"status":"registro actualizado ok",product});
+    res.status(200).json({"status":"registro actualizado ok",publicacion});
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Ha ocurrido un error al actualizar el Producto' });
+    res.status(500).json({ message: 'Ha ocurrido un error al actualizar la Publicacion' });
   }
 };
 
-export const getProduct = async (req, res) => {
+export const getPublication = async (req, res) => {
     try {
     const { id } = req.params;
     // Buscar un usuario por su ID en la base de datos
-    const product = await Product.findById(id);
-    if (!product) {
-      return res.status(404).json({ message: 'Producto no encontrado' });
+    const publication = await Publication.findById(id);
+    if (!publication) {
+      return res.status(404).json({ message: 'Publicacion no encontrado' });
     }
     // Enviar una respuesta al cliente
-    res.status(200).json(product);
+    res.status(200).json(publication);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Ha ocurrido un error al obtener el Producto' });
+        res.status(500).json({ message: 'Ha ocurrido un error al obtener la Publicacion' });
     }
 };

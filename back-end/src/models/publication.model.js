@@ -2,9 +2,8 @@ import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema(
    {
-     nombre: { type: String, required: true, unique: true },
-     precio: { type: Number, required: true },
-     stock: { type: Number, required: true },
+     title: { type: String, required: true},
+     description: { type: String, required: true },
      date: {type: Date, default: Date.now },
      user: {type: mongoose.Types.ObjectId, ref: "User"},
    },
@@ -14,4 +13,4 @@ const productSchema = new mongoose.Schema(
     
 );
 
-export default mongoose.model("producto", productSchema);
+export default mongoose.model("publication", productSchema);

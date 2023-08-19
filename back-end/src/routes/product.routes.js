@@ -1,10 +1,10 @@
 import { Router } from "express";
 import {
-  createProduct,
-  updateProduct,
-  deleteProduct,
-  getProduct,
-  getProducts
+  createPublication,
+  updatePublication,
+  deletePublication,
+  getPublication,
+  getPublications
 } from "../controllers/product.controllers.js";
 
 import authenticateToken from "../middlewares/auth.token.js";
@@ -13,15 +13,15 @@ import { validateSchema } from "../middlewares/validator.middleware.js";
 
 const router = Router();
 
-router.get("/",authenticateToken, getProducts);
+router.get("/",authenticateToken, getPublications);
 //router.get("/",getStudents);
 
-router.post("/",authenticateToken,validateSchema(createProductSchema), createProduct);
+router.post("/",authenticateToken,validateSchema(createProductSchema), createPublication);
 
-router.get("/:id", authenticateToken, getProduct);
+router.get("/:id", authenticateToken, getPublication);
 
-router.put("/:id", authenticateToken, updateProduct);
+router.put("/:id", authenticateToken, updatePublication);
 
-router.delete("/:id", authenticateToken, deleteProduct);
+router.delete("/:id", authenticateToken, deletePublication);
 
 export default router;
