@@ -60,7 +60,6 @@ export default function FormPublication() {
 
   return (
      <Card>
-       
       <form onSubmit={handleSubmit(onSubmit)}>
         <Label htmlFor="nombre">Nombre</Label>
         <Input

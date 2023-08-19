@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { usePublications } from "../context/PublicationContext";
+import { PublicationCard } from "../components/products/PublicationCard";
 import { ImFileEmpty } from "react-icons/im";
-import { PublicationList } from "../components/products/PublicationList"; // Asegúrate de importar correctamente ProductList
 
-export default function GetPublications() {
+export default function GetProducts() {
   const { publications, getPublications } = usePublications();
 
   useEffect(() => {
@@ -11,19 +11,23 @@ export default function GetPublications() {
   }, []);
 
   return (
-    <div className="table-container mx-auto">
-      {publications.length === 0 && (
-        <div className="flex justify-center items-center p-10">
+    <div className="flex justify-center w-full h-screen">
+      {publications.length === 0 ? (
+        <div className="flex justify-center  p-10">
           <div>
             <ImFileEmpty className="text-6xl text-gray-400 m-auto my-2" />
             <h1 className="font-bold text-xl">
-              No existen Publicaciones 
+              No existen productos ingresados
             </h1>
           </div>
         </div>
+      ) : (
+        <div className="space-y-4">
+          {publications.map((publication) => (
+            <PublicationCard publication={publication} key={publication._id} />
+          ))}
+        </div>
       )}
-
-      {publications.length > 0 && <PublicationList publications={publications} />}
     </div>
   );
 }
