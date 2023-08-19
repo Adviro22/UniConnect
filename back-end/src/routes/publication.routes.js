@@ -5,10 +5,10 @@ import {
   deletePublication,
   getPublication,
   getPublications
-} from "../controllers/product.controllers.js";
+} from "../controllers/publication.controllers.js";
 
 import authenticateToken from "../middlewares/auth.token.js";
-import { createProductSchema } from "../schemas/product.schema.js";
+import { createProductSchema } from "../schemas/publication.schema.js";
 import { validateSchema } from "../middlewares/validator.middleware.js";
 
 const router = Router();

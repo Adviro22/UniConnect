@@ -10,11 +10,12 @@ export const getPublications = async (req, res) => {
 export const createPublication = async (req, res) => {
   try {
     // nota1, nota 2
-     const { title,description } = req.body;
+     const { title, description, image } = req.body;
     console.log(req.body)
     const publication = new Publication({
       title,
       description,
+      image,
       user: req.user.userId
     });
     console.log(publication)

@@ -2,8 +2,11 @@ import express from "express";
 import cors from "cors";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
-import publicationRoutes from "./routes/product.routes.js";
+import publicationRoutes from "./routes/publication.routes.js";
 import authRoutes from './routes/auth.routes.js';
+import fileupload from 'express-fileupload'
+import bodyParser from "body-parser";
+
 const app = express();
 // llamar a los middlewares
 // para establecer el dominio del backend y las cokkies
@@ -15,6 +18,10 @@ app.use(cors({
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(cookieParser());
+app.use(fileupload({
+    useTempFiles: true,
+    tempFileDir: '/tmp/'
+}))
 
 app.get("/",(req,res)=>{
     res.json("Pagina Principal")
