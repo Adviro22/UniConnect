@@ -7,9 +7,13 @@ body{
 form {
   @apply inline-block text-left p-4 border rounded-lg border-gray-300 w-full;
 }
+textarea{
+  @apply inline-block text-left p-4 border rounded-lg border-gray-300 w-full;
+}
 
 label,
 input,
+textarea
 select {
   @apply block;
 }

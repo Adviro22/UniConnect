@@ -8,7 +8,8 @@ import utc from "dayjs/plugin/utc";
 dayjs.extend(utc);
 
 export default function FormPublication() {
-  const { createPublication, getPublication, updatePublication } = usePublications();
+  const { createPublication, getPublication, updatePublication } =
+    usePublications();
   const navigate = useNavigate();
   const params = useParams();
   const {
@@ -23,16 +24,16 @@ export default function FormPublication() {
       if (params.id) {
         updatePublication(params.id, {
           ...data,
-          precio:parseFloat(data.precio),
-          stock:parseFloat(data.stock),
+          title: (data.title),
+          description: (data.description),
           date: dayjs.utc(data.date).format(),
         });
       } else {
-        console.log("al grabar:",data)
+        console.log("al grabar:", data);
         createPublication({
           ...data,
-          precio:parseFloat(data.precio),
-          stock:parseFloat(data.stock),
+          title: (data.title),
+          description: (data.description),
           date: dayjs.utc(data.date).format(),
         });
       }
@@ -45,52 +46,49 @@ export default function FormPublication() {
   };
 
   useEffect(() => {
-    console.log(params.id)
-    const loadProdct = async () => {
+    console.log(params.id);
+    const loadPublication = async () => {
       if (params.id) {
-        const student = await getPublication(params.id);
-        setValue("nombre", student.nombre);
-        setValue("precio", student.precio);
-        setValue("stock", student.stock);
-        
+        const publication = await getPublication(params.id);
+        setValue("title", publication.title);
+        setValue("description", publication.description);
       }
     };
-    loadProdct();
-  }, []);
+    loadPublication();
+  }, [params.id]);
 
   return (
-     <Card>
+    <Card>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Label htmlFor="nombre">Nombre</Label>
+        <Label htmlFor="title">Titulo</Label>
         <Input
           type="text"
-          name="nombre"
-          placeholder="Ingrese el Nombre del producto"
-          {...register("nombre",{ required: {value:true,message:"Nombre es requerido"} })}
+          name="title"
+          placeholder="Ingrese el Titulo de la publicacion"
+          {...register("title", {
+            required: { value: true, message: "Titulo es requerido" },
+          })}
           autoFocus
         />
-        {errors.nombre && (
-          <p className="text-red-500 font-semibold">{errors.nombre.message}</p>
+        {errors.title && (
+          <p className="text-red-500 font-semibold">{errors.title.message}</p>
         )}
-        <Label htmlFor="precio">Precio:</Label>
-         <Input 
-            type="number"
-            name="precio"
-            placeholder="Escriba el precio..."
-            {...register("precio", { required: {value:true,message:"Precio es requerido"} })}
-          />
-          {errors.precio && (<p className="text-red-500 font-semibold">{errors.precio.message}</p>)}
-         <Label htmlFor="stock">Stock:</Label>
-          <Input 
-            type="number"
-            name="stock"
-            placeholder="Escriba la stock..."
-            {...register("stock", { required: {value:true,message:"Stock es requerido"} })}
-          />
-          {errors.stock && (<p className="text-red-500 font-semibold">{errors.stock.message}</p>)}
-          
+        <Label htmlFor="description">Descripcion:</Label>
+        <textarea
+          type="text"
+          name="description"
+          placeholder="Escriba la descripcion..."
+          className="bg-zinc-700"
+          {...register("description", {
+            required: { value: true, message: "Descripcion es requerido" },
+          })}
+        />
+        {errors.description && (
+          <p className="text-red-500 font-semibold">{errors.description.message}</p>
+        )}
+
         <Button>Grabar Registro</Button>
       </form>
     </Card>
-     );
+  );
 }
