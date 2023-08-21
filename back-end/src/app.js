@@ -1,32 +1,44 @@
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
+import { fileURLToPath } from 'url';
+import {dirname} from 'path'
+import multer from 'multer';
+import mimeTypes from 'mime-types'
 import cookieParser from "cookie-parser";
 import publicationRoutes from "./routes/publication.routes.js";
 import authRoutes from './routes/auth.routes.js';
-import fileupload from 'express-fileupload'
-import bodyParser from "body-parser";
 
 const app = express();
-// llamar a los middlewares
-// para establecer el dominio del backend y las cokkies
-//app.use(cors());//permite conectarse con diferentes servidores
+
 app.use(cors({
     origin: 'http://localhost:5173',
-    credentials:true
-}));//permite conectarse con diferentes servidores
+    credentials: true
+}));
+
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(cookieParser());
-app.use(fileupload({
-    useTempFiles: true,
-    tempFileDir: '/tmp/'
-}))
 
-app.get("/",(req,res)=>{
-    res.json("Pagina Principal")
+const storage = multer.diskStorage({
+    destination: 'Img/',
+    filename: function(req, file, cb){
+        const timestamp = Date.now(); // Obtén el timestamp actual
+        const extension = mimeTypes.extension(file.mimetype);
+        const filename = `${timestamp}_${file.originalname}.${extension}`;
+        cb("", filename);
+    }
+});
+export const upload = multer({
+    storage: storage
 })
-// rutas autentitificacion y estudiante
+export const currentDir = dirname(fileURLToPath(import.meta.url));
+
+app.get("/", (req, res) => {
+    res.json("Pagina Principal");
+});
+
 app.use('/api/auth', authRoutes);
 app.use("/api/publication", publicationRoutes);
+
 export default app;

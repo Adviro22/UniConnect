@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, Card, Input, Label } from "../components/ui";
 import { usePublications } from "../context/PublicationContext";
 import { useForm } from "react-hook-form";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import { uploadImageRequest } from "../services/publication"; // Importa el nuevo método
 dayjs.extend(utc);
 
 export default function FormPublication() {
@@ -19,34 +20,44 @@ export default function FormPublication() {
     formState: { errors },
   } = useForm();
 
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
+
   const onSubmit = async (data) => {
     try {
+      let finalImageUrl = imageUrl; // Utiliza la URL de imagen actual
+
+      if (selectedImage) {
+        // Si hay una nueva imagen, carga y obtén su URL
+        const uploadedImageUrl = await uploadImageRequest(selectedImage);
+        finalImageUrl = uploadedImageUrl;
+      }
+
+      const postData = {
+        title: data.title,
+        description: data.description,
+        date: dayjs.utc(data.date).format(),
+        image: finalImageUrl,
+        // Agrega otros campos aquí si los tienes
+      };
+
       if (params.id) {
-        updatePublication(params.id, {
-          ...data,
-          title: (data.title),
-          description: (data.description),
-          date: dayjs.utc(data.date).format(),
-        });
+        updatePublication(params.id, postData);
       } else {
-        console.log("al grabar:", data);
-        createPublication({
-          ...data,
-          title: (data.title),
-          description: (data.description),
-          date: dayjs.utc(data.date).format(),
-        });
+        createPublication(postData);
       }
 
       navigate("/publications");
     } catch (error) {
       console.log(error);
-      // window.location.href = "/";
     }
   };
 
+  const handleImageChange = (event) => {
+    setSelectedImage(event.target.files[0]);
+  };
+
   useEffect(() => {
-    console.log(params.id);
     const loadPublication = async () => {
       if (params.id) {
         const publication = await getPublication(params.id);
@@ -84,7 +95,15 @@ export default function FormPublication() {
           })}
         />
         {errors.description && (
-          <p className="text-red-500 font-semibold">{errors.description.message}</p>
+          <p className="text-red-500 font-semibold">
+            {errors.description.message}
+          </p>
+        )}
+
+        <Label htmlFor="image">Imagen:</Label>
+        <input type="file" name="image" onChange={handleImageChange} />
+        {errors.image && (
+          <p className="text-red-500 font-semibold">{errors.image.message}</p>
         )}
 
         <Button>Grabar Registro</Button>
