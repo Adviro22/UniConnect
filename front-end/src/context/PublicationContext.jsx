@@ -36,6 +36,7 @@ export function PublicationProvider({ children }) {
   const createPublication = async (publication) => {
     try {
       const res = await createPublicationsRequest(publication);
+      console.log(publication)
       console.log(res.data);
     } catch (error) {
       console.log(error);

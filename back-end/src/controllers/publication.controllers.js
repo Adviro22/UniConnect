@@ -15,9 +15,9 @@ export const getPublications = async (req, res) => {
 export const createPublication = async (req, res) => {
   try {
     const { title, description } = req.body;
-    const imageFile = req.file || (req.files && req.files.image);
+    const imageFile = req.file; // Usar req.file en lugar de req.body.image
 
-    let imageName = ""; // Cambio el nombre de la variable a imageName
+    let imageName = "";
 
     if (imageFile) {
       const savedImageName = await saveImage(imageFile);
@@ -27,7 +27,7 @@ export const createPublication = async (req, res) => {
     const publication = new Publication({
       title,
       description,
-      image: imageName, // Usar el nuevo nombre imageName
+      image: imageName,
       user: req.user.userId,
     });
 
@@ -36,10 +36,10 @@ export const createPublication = async (req, res) => {
     res.status(200).json({ status: "registro ingresado ok", publicationOk });
   } catch (error) {
     console.error(error);
-    console.log("Response:", error.response);
     res.status(500).json({ message: "Error al insertar" });
   }
 };
+
 
 export const saveImage = async (file) => { // Cambio el nombre del parámetro a 'file'
   try {
