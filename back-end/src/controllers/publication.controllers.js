@@ -15,20 +15,19 @@ export const getPublications = async (req, res) => {
 export const createPublication = async (req, res) => {
   try {
     const { title, description } = req.body;
-    const imageFile = req.file || (req.files && req.files.image); // Ajusta para manejar ambos casos
+    const imageFile = req.file || (req.files && req.files.image);
 
-    let image = ""; // Inicializa la variable para almacenar la ruta de la imagen
+    let imageName = ""; // Cambio el nombre de la variable a imageName
 
     if (imageFile) {
-      // Procesa y guarda la imagen utilizando la función saveImage
-      const savedImageName = await saveImage(imageFile); // Obtén el nombre de la imagen guardada
-      image = savedImageName; // Asigna el nombre de la imagen a la propiedad image
+      const savedImageName = await saveImage(imageFile);
+      imageName = savedImageName;
     }
 
     const publication = new Publication({
       title,
       description,
-      image, // Asigna la ruta de la imagen
+      image: imageName, // Usar el nuevo nombre imageName
       user: req.user.userId,
     });
 
@@ -37,36 +36,32 @@ export const createPublication = async (req, res) => {
     res.status(200).json({ status: "registro ingresado ok", publicationOk });
   } catch (error) {
     console.error(error);
-    console.log("Response:", error.response); // Agrega esta línea
+    console.log("Response:", error.response);
     res.status(500).json({ message: "Error al insertar" });
   }
 };
 
-
-// Función para guardar la imagen en el servidor
-export const saveImage = async (req, res) => {
+export const saveImage = async (file) => { // Cambio el nombre del parámetro a 'file'
   try {
-    const imageFile = req.file; // req.file contiene la información del archivo subido
-    if (!imageFile) {
-      return res
-        .status(400)
-        .json({ message: "No se proporcionó ningún archivo" });
+    if (!file) {
+      throw new Error("No se proporcionó ningún archivo"); // Lanzar una excepción en lugar de responder
     }
 
-    const timestamp = Date.now(); // Obtén el timestamp actual
-    const extension = mimeTypes.extension(imageFile.mimetype);
-    const filename = `${timestamp}_${imageFile.originalname}.${extension}`;
+    const timestamp = Date.now();
+    const extension = mimeTypes.extension(file.mimetype);
+    const filename = `${timestamp}_${file.originalname}.${extension}`;
     
     const imagePath = path.join(currentDir, "Img", filename);
 
-    await fs.promises.writeFile(imagePath, imageFile.buffer);
+    await fs.promises.writeFile(imagePath, file.buffer);
 
-    return res.status(200).json({ message: "Imagen guardada correctamente" });
+    return filename; // Devolver el nombre del archivo guardado
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "Error al guardar la imagen" });
+    throw new Error("Error al guardar la imagen"); // Lanzar una excepción en caso de error
   }
 };
+
 
 export const deletePublication = async (req, res) => {
   try {

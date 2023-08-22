@@ -18,9 +18,9 @@ const upload = multer(); // Usa multer sin configuración para form-data
 router.get("/", authenticateToken, getPublications);
 
 // Ruta para crear una publicación (form-data o JSON)
-router.post("/", authenticateToken, upload.single('image'), createPublication);
+router.post("/", authenticateToken, upload.single('imageFile'), validateSchema(createProductSchema), createPublication);
 
-router.post("/saveimage", authenticateToken, upload.single('image'), saveImage);
+router.post("/saveimage", authenticateToken, upload.single('imageFile'), saveImage);
 
 router.get("/:id", authenticateToken, getPublication);
 
