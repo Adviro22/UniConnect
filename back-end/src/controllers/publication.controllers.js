@@ -15,13 +15,14 @@ export const getPublications = async (req, res) => {
 export const createPublication = async (req, res) => {
   try {
     const { title, description } = req.body;
-    const imageFile = req.files && req.files.image;
+    const imageFile = req.file || (req.files && req.files.image); // Ajusta para manejar ambos casos
 
     let image = ""; // Inicializa la variable para almacenar la ruta de la imagen
 
     if (imageFile) {
       // Procesa y guarda la imagen utilizando la función saveImage
-      image = await saveImage(imageFile);
+      const savedImageName = await saveImage(imageFile); // Obtén el nombre de la imagen guardada
+      image = savedImageName; // Asigna el nombre de la imagen a la propiedad image
     }
 
     const publication = new Publication({
@@ -40,6 +41,7 @@ export const createPublication = async (req, res) => {
     res.status(500).json({ message: "Error al insertar" });
   }
 };
+
 
 // Función para guardar la imagen en el servidor
 export const saveImage = async (req, res) => {
@@ -81,6 +83,7 @@ export const deletePublication = async (req, res) => {
       .status(500)
       .json({ message: "Ha ocurrido un error al eliminar la publicacion" });
   }
+  return filename;
 };
 
 export const updatePublication = async (req, res) => {

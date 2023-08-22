@@ -16,7 +16,7 @@ app.use(cors({
     credentials: true
 }));
 
-app.use(express.json());
+app.use(express.json({limit: "10mb"}));
 app.use(morgan("dev"));
 app.use(cookieParser());
 
@@ -35,7 +35,7 @@ export const upload = multer({
 export const currentDir = dirname(fileURLToPath(import.meta.url));
 
 app.get("/", (req, res) => {
-    res.json("Pagina Principal");
+    res.sendFile(currentDir + "/HTML/index.html");
 });
 
 app.use('/api/auth', authRoutes);

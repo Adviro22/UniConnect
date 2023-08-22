@@ -1,4 +1,8 @@
 import { Router } from "express";
+import multer from 'multer'; // Importa multer
+import authenticateToken from "../middlewares/auth.token.js";
+import { createProductSchema } from "../schemas/publication.schema.js";
+import { validateSchema } from "../middlewares/validator.middleware.js";
 import {
   createPublication,
   updatePublication,
@@ -7,20 +11,16 @@ import {
   getPublications,
   saveImage
 } from "../controllers/publication.controllers.js";
-import multer from 'multer';
-import authenticateToken from "../middlewares/auth.token.js";
-import { createProductSchema } from "../schemas/publication.schema.js";
-import { validateSchema } from "../middlewares/validator.middleware.js";
 
 const router = Router();
-const upload = multer();
+const upload = multer(); // Usa multer sin configuración para form-data
 
-router.get("/",authenticateToken, getPublications);
-//router.get("/",getStudents);
+router.get("/", authenticateToken, getPublications);
 
-router.post("/",authenticateToken,validateSchema(createProductSchema), createPublication);
+// Ruta para crear una publicación (form-data o JSON)
+router.post("/", authenticateToken, upload.single('image'), createPublication);
 
-router.post("/saveimage", authenticateToken, upload.single('imagen'), saveImage);
+router.post("/saveimage", authenticateToken, upload.single('image'), saveImage);
 
 router.get("/:id", authenticateToken, getPublication);
 

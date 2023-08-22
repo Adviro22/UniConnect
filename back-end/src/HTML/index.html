@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Publicación</title>
+</head>
+<body>
+  <h1>Crear Publicación</h1>
+  <form id="publicationForm" enctype="multipart/form-data">
+    <label for="title">Título:</label>
+    <input type="text" id="title" name="title" required>
+    <br>
+    <label for="description">Descripción:</label>
+    <textarea id="description" name="description" required></textarea>
+    <br>
+    <label for="image">Imagen:</label>
+    <input type="file" id="image" name="image">
+    <br>
+    <button type="submit">Crear Publicación</button>
+  </form>
+
+  <script>
+    const form = document.getElementById("publicationForm");
+    
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch("http://localhost:5000/api/publication", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (response.ok) {
+          const responseData = await response.json();
+          console.log("Publicación creada:", responseData);
+          // Redirige a otra página o realiza alguna acción
+        } else {
+          console.error("Error al crear la publicación");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    });
+  </script>
+</body>
+</html>
