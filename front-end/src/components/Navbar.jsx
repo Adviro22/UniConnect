@@ -11,10 +11,6 @@ export function Navbar() {
       <h1 className="text-2xl font-bold text-white">
         <Link to={isAuthenticated ? "/allpublications" : "/"}>UniConnect+</Link>
       </h1>
-
-      <h1 className="text-2xl font-bold text-white">
-        <Link to={isAuthenticated ? "/publications" : "/"}>Mis Publicaciones</Link>
-      </h1>
       <ul className="flex gap-x-2">
         {isAuthenticated ? (
           <>
@@ -23,6 +19,9 @@ export function Navbar() {
             </li>
             <li>
               <ButtonLink to="/add-publication">Realizar una Publicación</ButtonLink>
+            </li>
+            <li>
+              <ButtonLink to="/publications">Mis Publicaciones</ButtonLink>
             </li>
             <li>
               <Link to="/" onClick={() => logout()} className="text-white">

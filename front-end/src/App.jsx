@@ -6,6 +6,7 @@ import { Navbar } from "./components/Navbar";
 import { Authprovider } from "./context/AuthContext.jsx";
 import Register from "./pages/Register.jsx";
 import FormPublication from "./pages/FormPublication.jsx";
+import EditPublication from "./pages/EditPublication.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import { PublicationProvider } from "./context/PublicationContext.jsx";
 import GetAllPublications from "./pages/GetAllPublications.jsx"
@@ -24,7 +25,7 @@ function App() {
               <Route element={<ProtectedRoute />}>
                 <Route path="/publications" element={<GetPublications />} />
                 <Route path="/add-publication" element={<FormPublication />} />
-                <Route path="/publication/:id" element={<FormPublication />} />
+                <Route path="/publication/:id" element={<EditPublication />} />
                 <Route path="/allpublications" element={<GetAllPublications />} />
               </Route>
             </Routes>

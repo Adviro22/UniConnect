@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { usePublications } from "../context/PublicationContext";
-import { PublicationCard } from "../components/products/PublicationCard";
+import { PublicationCard } from "../components/products/PublicationCard2";
 import { ImFileEmpty } from "react-icons/im";
 
 export default function GetAllPublications() {
