@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
+import path from 'path'
 import { fileURLToPath } from 'url';
 import {dirname} from 'path'
 import multer from 'multer';
@@ -40,5 +41,6 @@ app.get("/", (req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use("/api/publication", publicationRoutes);
+app.use('/Img', express.static(path.join(currentDir, 'Img')));
 
 export default app;

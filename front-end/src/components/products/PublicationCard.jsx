@@ -1,14 +1,14 @@
+import React from "react";
 import { usePublications } from "../../context/PublicationContext";
 import { Button, ButtonLink, Card } from "../ui";
 
 export function PublicationCard({ publication }) {
   const { deletePublication } = usePublications();
+  const imageUrl = `http://localhost:5000/Img/${publication.image}`;
 
   return (
-    <div
-      className={`bg-gray-500 items-center text-center h-100 p-10 rounded-md`}
-    >
-      <div className="flex justify-between items-center text-center ">
+    <div className={`bg-gray-500 items-center text-center h-100 p-10 rounded-md`}>
+      <div className="flex justify-between items-center text-center">
         <h1 className="text-2xl font-bold w-full">{publication.title}</h1>
       </div>
       <div>
@@ -22,9 +22,10 @@ export function PublicationCard({ publication }) {
         <br />
         <br />
         <br />
-        <Button onClick={() => deletePublication(publication._id)}>
-          Delete
-        </Button>
+        <img src={imageUrl} alt="Publication" className="max-w-full h-auto" />
+        <br />
+        <br />
+        <Button onClick={() => deletePublication(publication._id)}>Delete</Button>
         <ButtonLink to={`/publication/${publication._id}`}>Edit</ButtonLink>
       </div>
     </div>
