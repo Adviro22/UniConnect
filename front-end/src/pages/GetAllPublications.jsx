@@ -10,6 +10,11 @@ export default function GetAllPublications() {
     getAllPublications();
   }, []);
 
+  // Ordenar las publicaciones por fecha de creación descendente
+  const sortedPublications = [...publications].sort((a, b) => {
+    return new Date(b.createdAt) - new Date(a.createdAt);
+  });
+
   return (
     <div className="flex justify-center w-full h-screen">
       {publications.length === 0 ? (
@@ -23,7 +28,7 @@ export default function GetAllPublications() {
         </div>
       ) : (
         <div className="space-y-4">
-          {publications.map((publication) => (
+          {sortedPublications.map((publication) => (
             <PublicationCard
               publication={publication}
               key={publication._id}
