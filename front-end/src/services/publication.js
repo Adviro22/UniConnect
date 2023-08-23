@@ -4,6 +4,8 @@ import axios from "./axios";
 
 export const getPublicationsRequest = async () => axios.get("/publication");
 
+export const getAllPublicationsRequest = async () => axios.get("/publication/all");
+
 export const createPublicationsRequest = async (publication) => axios.post("/publication", publication);
 
 export const updatePublicationsRequest = async (id, publication) =>

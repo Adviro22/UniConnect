@@ -9,7 +9,11 @@ export function Navbar() {
   return (
     <nav className="bg-green-700 my-3 flex justify-between py-5 px-10 rounded-lg ">
       <h1 className="text-2xl font-bold text-white">
-        <Link to={isAuthenticated ? "/publications" : "/"}>UniConnect+</Link>
+        <Link to={isAuthenticated ? "/allpublications" : "/"}>UniConnect+</Link>
+      </h1>
+
+      <h1 className="text-2xl font-bold text-white">
+        <Link to={isAuthenticated ? "/publications" : "/"}>Mis Publicaciones</Link>
       </h1>
       <ul className="flex gap-x-2">
         {isAuthenticated ? (

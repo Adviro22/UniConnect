@@ -5,6 +5,7 @@ import {
   getPublicationsRequest,
   getPublicationRequest,
   updatePublicationsRequest,
+  getAllPublicationsRequest, 
 } from "../services/publication";
 
 const PublicationContext = createContext();
@@ -53,6 +54,15 @@ export function PublicationProvider({ children }) {
     }
   };
 
+  const getAllPublications = async () => {
+    try {
+      const res = await getAllPublicationsRequest();
+      setPublications(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const updatePublication = async (id, publication) => {
     try {
       await updatePublicationsRequest(id, publication);
@@ -65,6 +75,7 @@ export function PublicationProvider({ children }) {
     <PublicationContext.Provider
       value={{
         publications,
+        getAllPublications,
         getPublications,
         deletePublication,
         createPublication,
