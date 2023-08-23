@@ -25,3 +25,21 @@ button {
 button:hover {
   @apply bg-red-950;
 }
+
+/* Agrega estilos personalizados para la tarjeta */
+.custom-max-width {
+  max-width: 1450px;
+}
+
+/* Personaliza los colores de los botones */
+.btn-delete {
+  @apply m-2 px-2 py-2 bg-red-400 rounded-md cursor-pointer;
+}
+
+.btn-delete:hover {
+  @apply bg-red-950;
+}
+
+.btn-edit {
+  /* Agrega los estilos que desees para el botón de editar */
+}

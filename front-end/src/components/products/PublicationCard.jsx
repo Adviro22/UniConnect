@@ -7,26 +7,17 @@ export function PublicationCard({ publication }) {
   const imageUrl = `http://localhost:5000/Img/${publication.image}`;
 
   return (
-    <div className={`bg-gray-500 items-center text-center h-100 p-10 rounded-md`}>
-      <div className="flex justify-between items-center text-center">
-        <h1 className="text-2xl font-bold w-full">{publication.title}</h1>
-      </div>
-      <div>
+    <div className={`bg-gray-500 flex flex-col items-center justify-center h-100 p-10 rounded-md`}>
+      <h1 className="text-2xl font-bold">{publication.title}</h1>
+      <div className="mt-4">
         <p className="text-slate-300">
-          <span className="text-blue-800 w-full justify-center"></span>{" "}
           {publication.description}
         </p>
       </div>
-      <div className="flex gap-x-2 items-center justify-center">
-        <br />
-        <br />
-        <br />
-        <br />
-        <img src={imageUrl} alt="Publication" className="max-w-full h-auto" />
-        <br />
-        <br />
-        <Button onClick={() => deletePublication(publication._id)}>Delete</Button>
-        <ButtonLink to={`/publication/${publication._id}`}>Edit</ButtonLink>
+      <img src={imageUrl} alt="Publication" className="max-w-full h-auto custom-max-width mt-4" />
+      <div className="mt-4 flex gap-x-2 items-center">
+        <ButtonLink className="btn-edit" to={`/publication/${publication._id}`}>Edit</ButtonLink>
+        <Button className="btn-delete" onClick={() => deletePublication(publication._id)}>Delete</Button>
       </div>
     </div>
   );
