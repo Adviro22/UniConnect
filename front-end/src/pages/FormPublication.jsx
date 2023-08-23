@@ -33,18 +33,15 @@ export default function FormPublication() {
 
   const onSubmit = async (data) => {
     try {
-      const postData = {
-        title: data.title,
-        description: data.description,
-        date: dayjs.utc(data.date).format(),
-        imageFile: data.imageFile,
-        // Agrega otros campos aquí si los tienes
-      };
+      const formData = new FormData();
+      formData.append("title", data.title);
+      formData.append("description", data.description);
+      formData.append("imageFile", data.imageFile[0]);
 
       if (params.id) {
-        updatePublication(params.id, postData);
+        await updatePublication(params.id, formData);
       } else {
-        createPublication(postData);
+        await createPublication(formData);
       }
 
       navigate("/publications");
@@ -55,7 +52,7 @@ export default function FormPublication() {
 
   return (
     <Card>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
         <Label htmlFor="title">Titulo</Label>
         <Input
           type="text"
@@ -88,7 +85,9 @@ export default function FormPublication() {
         <Label htmlFor="imageFile">Imagen:</Label>
         <input type="file" name="imageFile" {...register("imageFile")} />
         {errors.imageFile && (
-          <p className="text-red-500 font-semibold">{errors.imageFile.message}</p>
+          <p className="text-red-500 font-semibold">
+            {errors.imageFile.message}
+          </p>
         )}
 
         <Button>Grabar Registro</Button>
