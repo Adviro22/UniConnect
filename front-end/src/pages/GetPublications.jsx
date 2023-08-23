@@ -17,7 +17,7 @@ export default function GetProducts() {
           <div>
             <ImFileEmpty className="text-6xl text-gray-400 m-auto my-2" />
             <h1 className="font-bold text-xl">
-              No existen productos ingresados
+              No existen Publicaciones Ingresadas
             </h1>
           </div>
         </div>

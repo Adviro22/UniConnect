@@ -8,10 +8,9 @@ export function PublicationCard({ publication }) {
 
   return (
     <div className={`bg-gray-500 flex flex-col items-center justify-center h-100 p-10 rounded-md`}>
-      <div className="mb-2">
-        <h2 className="text-lg font-semibold">{publication.user.name}</h2>
-        <p className="text-xs text-gray-400">{publication.createdAt}</p>
-      </div>
+        <div>
+            
+        </div>
       <h1 className="text-2xl font-bold">{publication.title}</h1>
       <div className="mt-4">
         <p className="text-slate-300">

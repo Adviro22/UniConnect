@@ -105,3 +105,22 @@ export const logout = async (req, res) => {
   return res.sendStatus(200);
 };
 
+export async function getUserById(req, res) {
+  try {
+    const userId = req.params.id; // Obtén el ID del usuario de los parámetros de la URL
+    const user = await User.findById(userId); // Obtiene el usuario de la base de datos por su ID
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Si el usuario existe, devuelve solo el nombre de usuario en JSON
+    res.json({ username: user.username });
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+
+
