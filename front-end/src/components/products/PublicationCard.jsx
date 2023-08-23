@@ -35,7 +35,9 @@ export function PublicationCard({ publication }) {
           {publication.description}
         </p>
       </div>
-      <img src={imageUrl} alt="Publication" className="max-w-full h-auto mt-4" />
+      {publication.image && (
+        <img src={imageUrl} alt="Publication" className="max-w-full h-auto mt-4" />
+      )}
       <div className="mt-4 flex gap-x-2 items-center justify-center">
         <ButtonLink className="btn-edit" to={`/publication/${publication._id}`}>Edit</ButtonLink>
         <Button className="btn-delete" onClick={() => deletePublication(publication._id)}>Delete</Button>

@@ -35,7 +35,9 @@ export function PublicationCard({ publication }) {
           {publication.description}
         </p>
       </div>
-      <img src={imageUrl} alt="Publication" className="max-w-full h-auto mt-4" />
+      {publication.image && (
+        <img src={imageUrl} alt="Publication" className="max-w-full h-auto mt-4" />
+      )}
     </div>
   );
 }
