@@ -1,28 +1,33 @@
-import React from "react";
-import { usePublications } from "../../context/PublicationContext";
-import { Button, ButtonLink, Card } from "../ui";
+import { useEffect } from "react";
+import { usePublications } from "../context/PublicationContext";
+import { PublicationCard } from "../components/products/PublicationCard";
+import { ImFileEmpty } from "react-icons/im";
 
-export function PublicationCard({ publication }) {
-  const { deletePublication } = usePublications();
-  const imageUrl = `http://localhost:5000/Img/${publication.image}`;
+export default function GetAllPublications() {
+  const { publications, getPublications } = usePublications();
+
+  useEffect(() => {
+    getPublications();
+  }, []);
 
   return (
-    <div className={`bg-gray-500 flex flex-col items-center justify-center h-100 p-10 rounded-md`}>
-      <div className="mb-2">
-        <h2 className="text-lg font-semibold">{publication.user.name}</h2>
-        <p className="text-xs text-gray-400">{publication.createdAt}</p>
-      </div>
-      <h1 className="text-2xl font-bold">{publication.title}</h1>
-      <div className="mt-4">
-        <p className="text-slate-300">
-          {publication.description}
-        </p>
-      </div>
-      <img src={imageUrl} alt="Publication" className="max-w-full h-auto custom-max-width mt-4" />
-      <div className="mt-4 flex gap-x-2 items-center">
-        <ButtonLink className="btn-edit" to={`/publication/${publication._id}`}>Edit</ButtonLink>
-        <Button className="btn-delete" onClick={() => deletePublication(publication._id)}>Delete</Button>
-      </div>
+    <div className="flex justify-center w-full h-screen">
+      {publications.length === 0 ? (
+        <div className="flex justify-center  p-10">
+          <div>
+            <ImFileEmpty className="text-6xl text-gray-400 m-auto my-2" />
+            <h1 className="font-bold text-xl">
+              No existen Publicaciones Ingresadas
+            </h1>
+          </div>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {publications.map((publication) => (
+            <PublicationCard publication={publication} key={publication._id} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

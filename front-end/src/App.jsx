@@ -8,6 +8,7 @@ import Register from "./pages/Register.jsx";
 import FormPublication from "./pages/FormPublication.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import { PublicationProvider } from "./context/PublicationContext.jsx";
+import GetAllPublications from "./pages/GetAllPublications.jsx"
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
                 <Route path="/publications" element={<GetPublications />} />
                 <Route path="/add-publication" element={<FormPublication />} />
                 <Route path="/publication/:id" element={<FormPublication />} />
+                <Route path="/allpublications" element={<GetAllPublications />} />
               </Route>
             </Routes>
           </main>

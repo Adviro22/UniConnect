@@ -9,6 +9,7 @@ import {
   deletePublication,
   getPublication,
   getPublications,
+  getAllPublications,
   saveImage
 } from "../controllers/publication.controllers.js";
 
@@ -16,6 +17,8 @@ const router = Router();
 const upload = multer(); // Usa multer sin configuración para form-data
 
 router.get("/", authenticateToken, getPublications);
+
+router.get("/all", authenticateToken, getAllPublications)
 
 // Ruta para crear una publicación (form-data o JSON)
 router.post("/", authenticateToken, upload.single('imageFile'), validateSchema(createProductSchema), createPublication);

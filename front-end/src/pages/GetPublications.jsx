@@ -3,7 +3,7 @@ import { usePublications } from "../context/PublicationContext";
 import { PublicationCard } from "../components/products/PublicationCard";
 import { ImFileEmpty } from "react-icons/im";
 
-export default function GetProducts() {
+export default function GetPublications() {
   const { publications, getPublications } = usePublications();
 
   useEffect(() => {

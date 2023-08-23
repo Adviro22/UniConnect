@@ -12,6 +12,17 @@ export const getPublications = async (req, res) => {
   res.status(200).json(publications);
 };
 
+export const getAllPublications = async (req, res) => {
+  try {
+    const publications = await Publication.find().populate();
+    res.status(200).json(publications);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error al obtener las publicaciones" });
+  }
+};
+
+
 export const createPublication = async (req, res) => {
   try {
     const { title, description } = req.body;
