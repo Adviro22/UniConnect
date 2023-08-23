@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 dayjs.extend(utc);
 
-export default function EditPublication() {
+export default function FormPublication() {
   const { createPublication, getPublication, updatePublication } =
     usePublications();
   const navigate = useNavigate();
@@ -18,28 +18,21 @@ export default function EditPublication() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  useEffect(() => {
-    const loadPublication = async () => {
-      if (params.id) {
-        const publication = await getPublication(params.id);
-        setValue("title", publication.title);
-        setValue("description", publication.description);
-      }
-    };
-    loadPublication();
-  }, [params.id]);
+  
+  // Declare state for form values
+  const [formValues, setFormValues] = useState({ title: "", description: "" });
 
   const onSubmit = async (data) => {
     try {
-      const formData = new FormData();
-      formData.append("title", data.title);
-      formData.append("description", data.description);
+      const dataToSend = {
+        title: data.title,
+        description: data.description,
+      };
 
       if (params.id) {
-        await updatePublication(params.id, formData);
+        await updatePublication(params.id, dataToSend);
       } else {
-        await createPublication(formData);
+        await createPublication(dataToSend);
       }
 
       navigate("/publications");
@@ -48,9 +41,19 @@ export default function EditPublication() {
     }
   };
 
+  useEffect(() => {
+    const loadPublication = async () => {
+      if (params.id) {
+        const publication = await getPublication(params.id);
+        setFormValues({ title: publication.title, description: publication.description });
+      }
+    };
+    loadPublication();
+  }, [params.id]);
+
   return (
     <Card>
-      <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
+      <form onSubmit={handleSubmit(onSubmit)} encType="application/json">
         <Label htmlFor="title">Titulo</Label>
         <Input
           type="text"
@@ -59,6 +62,8 @@ export default function EditPublication() {
           {...register("title", {
             required: { value: true, message: "Titulo es requerido" },
           })}
+          value={formValues.title}
+          onChange={(e) => setFormValues({ ...formValues, title: e.target.value })}
           autoFocus
         />
         {errors.title && (
@@ -73,12 +78,15 @@ export default function EditPublication() {
           {...register("description", {
             required: { value: true, message: "Descripcion es requerido" },
           })}
+          value={formValues.description}
+          onChange={(e) => setFormValues({ ...formValues, description: e.target.value })}
         />
         {errors.description && (
           <p className="text-red-500 font-semibold">
             {errors.description.message}
           </p>
         )}
+
         <Button>Grabar Registro</Button>
       </form>
     </Card>
