@@ -44,7 +44,7 @@ export default function FormPublication() {
         await createPublication(formData);
       }
 
-      navigate("/publications");
+      navigate("/allpublications");
     } catch (error) {
       console.log(error);
     }

@@ -14,7 +14,7 @@ export default function Login() {
   const navigate = useNavigate()
 
   useEffect(()=>{
-    if (isAuthenticated) navigate("/publications");
+    if (isAuthenticated) navigate("/allpublications");
   },[isAuthenticated])
 
   const submitLogin = handleSubmit( (body) => {
