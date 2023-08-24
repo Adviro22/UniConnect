@@ -1,0 +1,25 @@
+return (
+    <div className="bg-white rounded-lg shadow-md p-3 flex items-center">
+      <div className="w-1/3 pr-3">
+        {publication.image && (
+          <img src={imageUrl} alt="Publicación" className="w-full h-auto rounded-md" />
+        )}
+      </div>
+      <div className="w-2/3">
+        <div className="bg-gray-800 text-white p-2 rounded-md mb-1">
+          <h2 className="text-base font-semibold">Usuario: {username}</h2>
+          <p className="text-xs text-gray-400">Creado: {createdAt}</p>
+        </div>
+        <h1 className="text-lg font-bold text-black">{publication.title}</h1>
+        <div className="mt-1">
+          <p className="text-gray-600 text-sm">
+            {publication.description}
+          </p>
+        </div>
+        <div className="mt-2 flex gap-x-2 items-center">
+          <ButtonLink className="btn-edit" to={`/publicacion/${publication._id}`}>Editar</ButtonLink>
+          <Button className="btn-delete" onClick={() => deletePublication(publication._id)}>Eliminar</Button>
+        </div>
+      </div>
+    </div>
+  );

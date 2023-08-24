@@ -4,7 +4,7 @@ import { ButtonLink } from "./ui/ButtonLink";
 
 export function Navbar() {
   const { isAuthenticated, logout, user } = useAuth();
-  console.log(isAuthenticated, user)
+  console.log(isAuthenticated, user);
 
   const UserIcon = (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -13,11 +13,11 @@ export function Navbar() {
   );
 
   return (
-    <nav className="bg-green-700 my-3 flex justify-between py-5 px-10 rounded-lg ">
+    <nav className="bg-green-700 my-3 flex justify-between py-5 px-10 rounded-lg">
       <h1 className="text-2xl font-bold text-white">
         <Link to={isAuthenticated ? "/allpublications" : "/"}>UniConnect+</Link>
       </h1>
-      <ul className="flex gap-x-2">
+      <ul className="flex gap-x-2 items-center">
         {isAuthenticated ? (
           <>
             <li>
@@ -26,25 +26,27 @@ export function Navbar() {
               </span>
             </li>
             <li>
-              <ButtonLink to="/add-publication">Publicar</ButtonLink>
+              <ButtonLink to="/add-publication" className="transition duration-300 ease-in-out transform hover:scale-105">Publicar</ButtonLink>
             </li>
             <li>
-              <ButtonLink to="/publications">Mis Publicaciones</ButtonLink>
+              <ButtonLink to="/publications" className="transition duration-300 ease-in-out transform hover:scale-105">Mis Publicaciones</ButtonLink>
             </li>
-            <Link
-              className="bg-red-500 text-white px-3 py-1 rounded-md flex items-center"
-              to="/"
-              onClick={() => logout()}
-            > <span className="ml-2">Logout</span>
-            </Link>
+            <li>
+              <button
+                className="bg-red-500 text-white px-3 py-1 rounded-md flex items-center transition duration-300 ease-in-out transform hover:scale-105"
+                onClick={() => logout()}
+              >
+                <span className="ml-1">Logout</span>
+              </button>
+            </li>
           </>
         ) : (
           <>
             <li>
-              <ButtonLink to="/login">Login</ButtonLink>
+              <ButtonLink to="/login" className="transition duration-300 ease-in-out transform hover:scale-105">Login</ButtonLink>
             </li>
             <li>
-              <ButtonLink to="/register">Register</ButtonLink>
+              <ButtonLink to="/register" className="transition duration-300 ease-in-out transform hover:scale-105">Register</ButtonLink>
             </li>
           </>
         )}

@@ -17,7 +17,7 @@ export function PublicationCard({ publication }) {
         setUsername(user.username);
       })
       .catch(error => {
-        console.error("Error al obtener el usuario:", error);
+        console.error("Error fetching user:", error);
       });
 
     setCreatedAt(publication.createdAt);
@@ -41,11 +41,11 @@ export function PublicationCard({ publication }) {
             {publication.description}
           </p>
         </div>
-        <div className="mt-2 flex gap-x-2 items-center">
-          <ButtonLink className="btn-edit" to={`/publicacion/${publication._id}`}>Editar</ButtonLink>
-          <Button className="btn-delete" onClick={() => deletePublication(publication._id)}>Eliminar</Button>
-        </div>
+      <div className="mt-4 flex gap-x-2 items-center justify-center">
+        <ButtonLink className="btn-edit" to={`/publication/${publication._id}`}>Edit</ButtonLink>
+        <Button className="btn-delete" onClick={() => deletePublication(publication._id)}>Delete</Button>
       </div>
+    </div>
     </div>
   );
 }
