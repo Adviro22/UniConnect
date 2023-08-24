@@ -17,27 +17,31 @@ export function PublicationCard({ publication }) {
         setUsername(user.username);
       })
       .catch(error => {
-        console.error("Error fetching user:", error);
+        console.error("Error al obtener el usuario:", error);
       });
 
     setCreatedAt(publication.createdAt);
   }, [publication.user, publication.createdAt]);
 
   return (
-    <div className="bg-gray-500 flex flex-col items-center justify-center h-auto p-10 rounded-md">
-      <div className="mb-2 text-center bg-black p-6">
-        <h2 className="text-lg font-semibold">Usuario: {username}</h2>
-        <p className="text-xs text-gray-400">Fecha de Creación: {createdAt}</p>
-      </div>
-      <h1 className="text-2xl font-bold text-center">{publication.title}</h1>
-      <div className="mt-4 text-center">
-        <p className="text-slate-300">
-          {publication.description}
-        </p>
-      </div>
+    <div className="bg-white rounded-lg shadow-md p-3 flex items-center justify-center">
       {publication.image && (
-        <img src={imageUrl} alt="Publication" className="max-w-full h-auto mt-4" />
+        <div className="w-1/3 pr-3">
+          <img src={imageUrl} alt="Publicación" className="w-full h-auto rounded-md" />
+        </div>
       )}
+      <div className={publication.image ? "w-2/3 text-center" : "w-full text-center"}>
+        <div className="bg-gray-800 text-white p-2 rounded-md mb-1">
+          <h2 className="text-base font-semibold ">Usuario: {username}</h2>
+          <p className="text-xs text-gray-400">Creado: {createdAt}</p>
+        </div>
+        <h1 className="text-xl font-bold text-black">{publication.title}</h1>
+        <div className="mt-1">
+          <p className="text-gray-600 text-sm">
+            {publication.description}
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

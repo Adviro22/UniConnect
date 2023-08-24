@@ -6,6 +6,12 @@ export function Navbar() {
   const { isAuthenticated, logout, user } = useAuth();
   console.log(isAuthenticated, user)
 
+  const UserIcon = (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4c-2.75 0-5 2.25-5 5s2.25 5 5 5 5-2.25 5-5-2.25-5-5-5zM12 14c3.33 0 9 1.67 9 5v2H3v-2c0-3.33 5.67-5 9-5z" />
+    </svg>
+  );
+
   return (
     <nav className="bg-green-700 my-3 flex justify-between py-5 px-10 rounded-lg ">
       <h1 className="text-2xl font-bold text-white">
@@ -14,20 +20,23 @@ export function Navbar() {
       <ul className="flex gap-x-2">
         {isAuthenticated ? (
           <>
-            <li className="text-white">
-              user: {user.email}
+            <li>
+              <span className="flex items-center">
+                {UserIcon} <span className="ml-2"> {user.email}</span>
+              </span>
             </li>
             <li>
-              <ButtonLink to="/add-publication">Realizar una Publicación</ButtonLink>
+              <ButtonLink to="/add-publication">Publicar</ButtonLink>
             </li>
             <li>
               <ButtonLink to="/publications">Mis Publicaciones</ButtonLink>
             </li>
-            <li>
-              <Link to="/" onClick={() => logout()} className="text-white">
-                Logout
-              </Link>
-            </li>
+            <Link
+              className="bg-red-500 text-white px-3 py-1 rounded-md flex items-center"
+              to="/"
+              onClick={() => logout()}
+            > <span className="ml-2">Logout</span>
+            </Link>
           </>
         ) : (
           <>
